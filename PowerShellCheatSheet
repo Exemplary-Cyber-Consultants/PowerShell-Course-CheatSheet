@@ -1,13 +1,17 @@
 Start-Transcript                                          # Creates a record of all or part of a PowerShell session to a text file.
 
-$PSversionTable                                            # PowerShell created Automatic varible that displays version info
+$PSversionTable                                           # PowerShell created Automatic varible that displays version info
+
+$Env:Path                                                 # Autonatic Environment variable containing the path to executable resources
+
+$Profile                                                  # Autonatic Environment variable that displays the file location of the script that is triggered upon opening a PS Session
+
+
 
 Get-Command *                                             # An asterisk (*) in many languages acts as a wildcard. This syntax is saying: get me ALL of the commands
                                                           # (native binaries in $env:PATH + cmdlets / functions from PowerShell modules)
 Get-Command -Module Microsoft*                            # Retrieves a list of all the PowerShell commands exported from modules named Microsoft*
 Get-Command -Name *item                                   # Retrieves a list of all commands (native binaries + PowerShell commands) ending in "item"
-
-Get-Service                                               # 
 
 Get-Help                                                  # Get all help topics
 Get-Help -Name about_Variables                            # Get help for a specific about_* topic (aka. man page)
