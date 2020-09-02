@@ -6,7 +6,9 @@ $Env:Path                                                 # Autonatic Environmen
 
 $Profile                                                  # Autonatic Environment variable that displays the file location of the script that is triggered upon opening a PS Session
 
+Get-Verb                                                  # Displays a list of the accepted verbs
 
+Get-Noun                                                  # Displays a list of the accepted nouns in PowerShell
 
 Get-Command *                                             # An asterisk (*) in many languages acts as a wildcard. This syntax is saying: get me ALL of the commands
                                                           # (native binaries in $env:PATH + cmdlets / functions from PowerShell modules)
@@ -17,6 +19,46 @@ Get-Help                                                  # Get all help topics
 Get-Help -Name about_Variables                            # Get help for a specific about_* topic (aka. man page)
 Get-Help -Name Get-Command                                # Get help for a specific PowerShell function
 Get-Help -Name Get-Command -Parameter Module              # Get help for a specific parameter on a specific command
+
+Get-Member                                                # Displays properties and methods of an object
+
+
+
+###################################################
+# Filesystem
+###################################################
+
+New-Item -Path c:\test -ItemType Directory                  # Create a directory
+mkdir c:\test2                                              # Create a directory (short-hand)
+
+New-Item -Path c:\test\myrecipes.txt                        # Create an empty file
+Set-Content -Path c:\test.txt -Value ''                     # Create an empty file
+[System.IO.File]::WriteAllText('testing.txt', '')           # Create an empty file using .NET Base Class Library
+
+Remove-Item -Path testing.txt                               # Delete a file
+[System.IO.File]::Delete('testing.txt')                     # Delete a file using .NET Base Class Library
+
+
+###################################################
+# Variables
+###################################################
+
+$a = 0                                                    # Initialize a variable
+[int] $a = 'Trevor'                                       # Initialize a variable, with the specified type (throws an exception)
+[string] $a = 'Trevor'                                    # Initialize a variable, with the specified type (doesn't throw an exception)
+
+Get-Command -Name *varia*                                 # Get a list of commands related to variable management
+
+Get-Variable                                              # Get an array of objects, representing the variables in the current and parent scopes 
+Get-Variable | ? { $PSItem.Options -contains 'constant' } # Get variables with the "Constant" option set
+Get-Variable | ? { $PSItem.Options -contains 'readonly' } # Get variables with the "ReadOnly" option set
+
+New-Variable -Name FirstName -Value Trevor
+New-Variable FirstName -Value Trevor -Option Constant     # Create a constant variable, that can only be removed by restarting PowerShell
+New-Variable FirstName -Value Trevor -Option ReadOnly     # Create a variable that can only be removed by specifying the -Force parameter on Remove-Variable
+
+Remove-Variable -Name firstname                           # Remove a variable, with the specified name
+Remove-Variable -Name firstname -Force                    # Remove a variable, with the specified name, that
 
 
 ###################################################
@@ -74,27 +116,7 @@ switch -regex (@('Trevor', 'Daniel', 'Bobby')) {          # Switch statement omi
   'r' { $PSItem }
 }
 
-###################################################
-# Variables
-###################################################
 
-
-$a = 0                                                    # Initialize a variable
-[int] $a = 'Trevor'                                       # Initialize a variable, with the specified type (throws an exception)
-[string] $a = 'Trevor'                                    # Initialize a variable, with the specified type (doesn't throw an exception)
-
-Get-Command -Name *varia*                                 # Get a list of commands related to variable management
-
-Get-Variable                                              # Get an array of objects, representing the variables in the current and parent scopes 
-Get-Variable | ? { $PSItem.Options -contains 'constant' } # Get variables with the "Constant" option set
-Get-Variable | ? { $PSItem.Options -contains 'readonly' } # Get variables with the "ReadOnly" option set
-
-New-Variable -Name FirstName -Value Trevor
-New-Variable FirstName -Value Trevor -Option Constant     # Create a constant variable, that can only be removed by restarting PowerShell
-New-Variable FirstName -Value Trevor -Option ReadOnly     # Create a variable that can only be removed by specifying the -Force parameter on Remove-Variable
-
-Remove-Variable -Name firstname                           # Remove a variable, with the specified name
-Remove-Variable -Name firstname -Force                    # Remove a variable, with the specified name, that has the "ReadOnly" option set
 
 ###################################################
 # Functions
@@ -151,19 +173,6 @@ Register-PSRepository -Name <repo> -SourceLocation <uri>    # Configure a privat
 Unregister-PSRepository -Name <repo>                        # Deregister a PowerShell Repository
 
 
-###################################################
-# Filesystem
-###################################################
-
-New-Item -Path c:\test -ItemType Directory                  # Create a directory
-mkdir c:\test2                                              # Create a directory (short-hand)
-
-New-Item -Path c:\test\myrecipes.txt                        # Create an empty file
-Set-Content -Path c:\test.txt -Value ''                     # Create an empty file
-[System.IO.File]::WriteAllText('testing.txt', '')           # Create an empty file using .NET Base Class Library
-
-Remove-Item -Path testing.txt                               # Delete a file
-[System.IO.File]::Delete('testing.txt')                     # Delete a file using .NET Base Class Library
 
 ###################################################
 # Hashtables (Dictionary)
