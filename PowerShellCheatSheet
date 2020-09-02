@@ -204,3 +204,18 @@ Get-CimInstance -ClassName Win32_VideoController            # Retrieve informati
 
 Get-CimClass -Namespace root\cimv2                          # Explore the various WMI classes available in the root\cimv2 namespace
 Get-CimInstance -Namespace root -ClassName __NAMESPACE      # Explore the child WMI namespaces underneath the root\cimv2 namespace
+
+
+###################################################
+# Active Directory Script
+###################################################
+
+New-ADUser 
+    $path="OU=IT,DC=enterprise,DC=com"
+    $username=Read-Host "Enter name"
+    $n=Read-Host "Enter Number"
+    $count=1..$n
+    foreach ($i in $count)
+    { New-AdUser -Name $username$i -Path $path -Enabled $True -ChangePasswordAtLogon $true  `
+
+    -AccountPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -force) -passThru }
