@@ -209,6 +209,10 @@ Get-CimInstance -Namespace root -ClassName __NAMESPACE      # Explore the child 
 ###################################################
 # Active Directory Script
 ###################################################
+Get-Command *aduser
+Get-Command *adcomputer
+
+
 
 New-ADUser 
     $path="OU=IT,DC=enterprise,DC=com"
@@ -219,3 +223,5 @@ New-ADUser
     { New-AdUser -Name $username$i -Path $path -Enabled $True -ChangePasswordAtLogon $true  `
 
     -AccountPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -force) -passThru }
+    
+    
